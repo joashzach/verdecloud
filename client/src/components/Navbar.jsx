@@ -1,5 +1,5 @@
-﻿/**
- * Navbar.jsx ΓÇö VerdeCloud Resizable Navbar
+/**
+ * Navbar.jsx — VerdeCloud Resizable Navbar
  *
  * Implements the Aceternity UI "Resizable Navbar" pattern:
  * - Starts full-width (pill) centered at top of viewport
@@ -10,7 +10,7 @@
  * Uses framer-motion for smooth resize animation.
  * Uses react-router-dom NavLink for active-state routing.
  *
- * Navigation config lives in NAV_ITEMS ΓÇö add/remove routes here.
+ * Navigation config lives in NAV_ITEMS — add/remove routes here.
  */
 
 import { useState, useEffect } from 'react';
@@ -18,7 +18,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
 
-// ΓöÇΓöÇ Nav configuration ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+// ── Nav configuration ──────────────────────────────────────────
 const NAV_ITEMS = [
   {
     title: 'Overview',
@@ -71,7 +71,7 @@ const NAV_ITEMS = [
   },
 ];
 
-// ΓöÇΓöÇ Logo ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+// ── Logo ───────────────────────────────────────────────────────
 function VerdeCloudLogo({ compact }) {
   return (
     <NavLink to="/" className="navbar__logo" aria-label="VerdeCloud home">
@@ -82,7 +82,7 @@ function VerdeCloudLogo({ compact }) {
           <path d="M11 20V9" />
         </svg>
       </span>
-      {/* Wordmark ΓÇö hidden when compact on desktop */}
+      {/* Wordmark — hidden when compact on desktop */}
       <AnimatePresence>
         {!compact && (
           <motion.span
@@ -100,7 +100,7 @@ function VerdeCloudLogo({ compact }) {
   );
 }
 
-// ΓöÇΓöÇ Main Navbar ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+// ── Main Navbar ────────────────────────────────────────────────
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -128,7 +128,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ΓöÇΓöÇ Fixed container that centers the pill ΓöÇΓöÇ */}
+      {/* ── Fixed container that centers the pill ── */}
       <div className="navbar-wrapper" role="banner">
         <motion.nav
           className={`navbar ${scrolled ? 'navbar--compact' : ''}`}
@@ -144,7 +144,7 @@ export default function Navbar() {
           {/* Logo */}
           <VerdeCloudLogo compact={scrolled} />
 
-          {/* ΓöÇΓöÇ Desktop nav links ΓöÇΓöÇ */}
+          {/* ── Desktop nav links ── */}
           <ul className="navbar__links" role="list">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
@@ -162,7 +162,7 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* ΓöÇΓöÇ Mobile hamburger ΓöÇΓöÇ */}
+          {/* ── Mobile hamburger ── */}
           <button
             className="navbar__hamburger"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
@@ -193,7 +193,7 @@ export default function Navbar() {
         </motion.nav>
       </div>
 
-      {/* ΓöÇΓöÇ Mobile Drawer ΓöÇΓöÇ */}
+      {/* ── Mobile Drawer ── */}
       <AnimatePresence>
         {mobileOpen && (
           <>

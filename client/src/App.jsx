@@ -6,14 +6,16 @@
  *
  * Route map:
  *  /                    → OverviewPage        (Person 1 — Baibhav)
- *  /instances           → InstancesPage       (Person 2)
- *  /instances/:id       → InstanceDetail      (Person 2)
+ *  /instances           → InstancesPage       (Person 2 — Ardhendu)
+ *  /instances/:id       → InstanceDetail      (Person 2 — Ardhendu, handles detail view)
  *  /recommendations     → RecommendationsPage (Ardhendu)
  *  /reports             → ReportsPage         (Ardhendu)
+ *  *                    → NotFoundPage        (catch-all)
  *
  * TEAM RULES:
  *  - Do NOT add feature-specific logic here.
- *  - To add a new route, add it to <Routes> and update NAV_ITEMS in Navbar.jsx.
+ *  - Do NOT import feature components directly — use page-level imports.
+ *  - To add a new route, add it to the <Routes> block and update NAV_ITEMS in Navbar.jsx.
  */
 
 import { Routes, Route } from 'react-router-dom';
@@ -23,6 +25,7 @@ import InstancesPage from './pages/InstancesPage';
 import InstanceDetail from './pages/InstanceDetail';
 import RecommendationsPage from './pages/RecommendationsPage';
 import ReportsPage from './pages/ReportsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
   return (
@@ -37,6 +40,7 @@ export default function App() {
         <Route path="/instances/:id" element={<InstanceDetail />} />
         <Route path="/recommendations" element={<RecommendationsPage />} />
         <Route path="/reports" element={<ReportsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );

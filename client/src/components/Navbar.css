@@ -1,8 +1,8 @@
-﻿/* ============================================================
-   Navbar.css ΓÇö Styles for the VerdeCloud Resizable Navbar
+/* ============================================================
+   Navbar.css — Styles for the VerdeCloud Resizable Navbar
    ============================================================ */
 
-/* ΓöÇΓöÇ Fixed wrapper ΓÇö centers the pill at the top ΓöÇΓöÇ */
+/* ── Fixed wrapper — centers the pill at the top ── */
 .navbar-wrapper {
   position: fixed;
   top: var(--navbar-top-offset);
@@ -14,7 +14,7 @@
   pointer-events: none; /* Allow clicks through wrapper, only pill intercepts */
 }
 
-/* ΓöÇΓöÇ Navbar pill ΓöÇΓöÇ */
+/* ── Navbar pill ── */
 .navbar {
   pointer-events: auto;
   width: calc(100% - var(--space-8));
@@ -31,7 +31,7 @@
   /* framer-motion handles width via inline style */
 }
 
-/* ΓöÇΓöÇ Logo ΓöÇΓöÇ */
+/* ── Logo ── */
 .navbar__logo {
   display: flex;
   align-items: center;
@@ -61,7 +61,7 @@
   letter-spacing: -0.02em;
 }
 
-/* ΓöÇΓöÇ Desktop nav links ΓöÇΓöÇ */
+/* ── Desktop nav links ── */
 .navbar__links {
   display: flex;
   align-items: center;
@@ -108,7 +108,7 @@
   line-height: 1;
 }
 
-/* ΓöÇΓöÇ Hamburger button (mobile only) ΓöÇΓöÇ */
+/* ── Hamburger button (mobile only) ── */
 .navbar__hamburger {
   display: none;
   align-items: center;
@@ -132,7 +132,7 @@
   justify-content: center;
 }
 
-/* ΓöÇΓöÇ Mobile backdrop ΓöÇΓöÇ */
+/* ── Mobile backdrop ── */
 .navbar__backdrop {
   position: fixed;
   inset: 0;
@@ -140,7 +140,7 @@
   z-index: calc(var(--navbar-z-index) - 1);
 }
 
-/* ΓöÇΓöÇ Mobile drawer ΓöÇΓöÇ */
+/* ── Mobile drawer ── */
 .navbar__mobile-drawer {
   position: fixed;
   top: calc(var(--navbar-top-offset) + 68px);
@@ -195,7 +195,7 @@
   background: var(--color-primary-light);
 }
 
-/* ΓöÇΓöÇ Responsive breakpoints ΓöÇΓöÇ */
+/* ── Responsive breakpoints ── */
 @media (max-width: 768px) {
   .navbar__links {
     display: none;

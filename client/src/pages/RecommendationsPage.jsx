@@ -7,6 +7,8 @@
  * - metric colors from TrendChart
  *
  * States: loading (skeleton) | loaded | empty | error
+ *
+ * Owner: Person 2 (Ardhendu)
  */
 
 import { useState, useEffect, useCallback } from 'react';
@@ -193,6 +195,7 @@ export default function RecommendationsPage() {
             ))}
           </div>
         )}
+
       </div>
     </main>
   );

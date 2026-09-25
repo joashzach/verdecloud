@@ -85,7 +85,7 @@
 
   /* Border radius */
   --radius-sm:  6px;
-  --radius-md:  10px;
+  --radius-md:  10px;   /* card radius per design system */
   --radius-lg:  12px;
   --radius-xl:  16px;
   --radius-full:9999px;
@@ -149,7 +149,7 @@ img, svg {
 /* Layout */
 .container {
   width: 100%;
-  max-width: 960px;
+  max-width: 1280px;
   margin-inline: auto;
   padding-inline: var(--space-6);
 }
@@ -163,7 +163,7 @@ img, svg {
   padding: var(--space-6);
 }
 
-/* Badges */
+/* Badges / Status */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -299,7 +299,7 @@ img, svg {
   .container { padding-inline: var(--space-4); }
 }
 
-/* Scrollbar */
+/* Scrollbar (subtle) */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }

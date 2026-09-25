@@ -1,0 +1,186 @@
+/* ============================================================
+   TrendChart.css
+   ============================================================ */
+
+.trend-chart {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-6);
+}
+
+/* ── Header ── */
+.trend-chart__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.trend-chart__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.trend-chart__subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+/* ── Trend summary ── */
+.trend-chart__summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+}
+
+.trend-chart__summary--good {
+  color: var(--color-success);
+}
+
+.trend-chart__summary--bad {
+  color: var(--color-danger);
+}
+
+.trend-chart__summary-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-muted);
+  letter-spacing: 0;
+}
+
+/* ── Period switcher (Weekly / Monthly / 6 Months) ── */
+.trend-chart__period-bar {
+  display: flex;
+  gap: 2px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  width: fit-content;
+  margin-bottom: var(--space-4);
+}
+
+.trend-chart__period-btn {
+  padding: 5px 14px;
+  border-radius: calc(var(--radius-sm) - 2px);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.trend-chart__period-btn:hover {
+  color: var(--color-text);
+  background: rgba(0,0,0,0.04);
+}
+
+.trend-chart__period-btn--active {
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ── Tabs ── */
+.trend-chart__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.trend-chart__tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.trend-chart__tab:hover {
+  color: var(--color-text);
+  border-color: #D1D5DB;
+}
+
+.trend-chart__tab--active {
+  background: var(--color-surface);
+  color: var(--tab-color, var(--color-text));
+  border-color: var(--tab-color, var(--color-border));
+  box-shadow: var(--shadow-sm);
+}
+
+.trend-chart__tab-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Canvas ── */
+.trend-chart__canvas {
+  margin-top: var(--space-2);
+}
+
+/* ── Tooltip ── */
+.trend-tooltip {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  box-shadow: var(--shadow-lg);
+}
+
+.trend-tooltip__month {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+}
+
+.trend-tooltip__value {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .trend-chart__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .trend-chart__summary {
+    align-items: flex-start;
+  }
+
+  .trend-chart__tabs {
+    gap: var(--space-1);
+  }
+
+  .trend-chart__tab {
+    font-size: var(--font-size-xs);
+    padding: 5px 10px;
+  }
+}

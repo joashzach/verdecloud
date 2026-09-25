@@ -4,6 +4,8 @@
  * List view of all cloud instances.
  * Features: search, provider/region/status/efficiency filters, sort,
  * summary stat pills, clickable rows → /instances/:id.
+ *
+ * Owner: Person 2 (Ardhendu)
  */
 
 import { useState, useMemo } from 'react';

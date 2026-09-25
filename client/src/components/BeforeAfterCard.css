@@ -1,0 +1,193 @@
+/* ============================================================
+   BeforeAfterCard.css — Redesigned with visual bar comparison
+   ============================================================ */
+
+.bac {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-6);
+}
+
+/* ── Header ── */
+.bac__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.bac__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.bac__subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.bac__summary-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ── Period labels ── */
+.bac__period-labels {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.bac__period-chip {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+}
+
+.bac__period-chip--before {
+  background: #F3F4F6;
+  color: var(--color-text-muted);
+}
+
+.bac__period-chip--after {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-color: transparent;
+}
+
+.bac__period-divider {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* ── Metric rows container ── */
+.bac__metrics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.bac__metric-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Metric label + improvement badge */
+.bac__metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bac__metric-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.bac__metric-badge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.bac__metric-badge--good {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.bac__metric-badge--neutral {
+  background: var(--color-danger-light);
+  color: #991B1B;
+}
+
+/* ── Visual bar comparison ── */
+.bac__bars {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bac__bar-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.bac__bar-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  width: 34px;
+  flex-shrink: 0;
+  font-weight: var(--font-weight-medium);
+}
+
+.bac__bar-track {
+  flex: 1;
+  height: 9px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.bac__bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.bac__bar--before {
+  background: #D1D5DB;
+}
+
+.bac__bar--good {
+  background: var(--color-primary);
+}
+
+.bac__bar--bad {
+  background: var(--color-danger);
+}
+
+.bac__bar-value {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  min-width: 60px;
+  text-align: right;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.bac__bar-value--muted {
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+  text-decoration-color: rgba(107,114,128,0.35);
+}
+
+.bac__bar-value--good {
+  color: var(--color-primary);
+}
+
+.bac__bar-value--bad {
+  color: var(--color-danger);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .bac__header { flex-direction: column; }
+  .bac__summary-badges { width: 100%; }
+  .bac__bar-value { min-width: 48px; }
+}
