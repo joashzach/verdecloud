@@ -16,7 +16,12 @@ describe("Recommendation engine orchestrator", () => {
 
     currentGridIntensity: 0.71,
     alternativeGridIntensity: 0.50,
-    workloadFlexible: true
+    workloadFlexible: true,
+
+    idleWattsPerVcpu: 10,
+    maxWattsPerVcpu: 30,
+    hoursRunning: 24,
+    pue: 1.15
   };
 
   test("returns all applicable recommendations", () => {
@@ -25,7 +30,7 @@ describe("Recommendation engine orchestrator", () => {
     expect(recommendations).toHaveLength(4);
 
     expect(
-      recommendations.map((r) => r.type)
+      recommendations.map((recommendation) => recommendation.type)
     ).toEqual([
       "IDLE_CLEANUP",
       "RIGHT_SIZE",

@@ -1,3 +1,5 @@
+const INSTANCE_TYPES = require("../../data/instanceTypes");
+
 const {
   getIdleRecommendation
 } = require("./idle");
@@ -14,9 +16,18 @@ const {
   getCarbonShiftRecommendation
 } = require("./carbonShift");
 
+const {
+  calculateRightSizeSavings
+} = require("../energy/savings");
+
+const {
+  calculateRiskScore
+} = require("./riskScore");
+
 function getRecommendations(metrics) {
   const recommendations = [];
 
+  // Idle cleanup
   const idle = getIdleRecommendation({
     avgCpuPercent: metrics.avgCpuPercent,
     avgNetworkBytes: metrics.avgNetworkBytes,
@@ -27,15 +38,42 @@ function getRecommendations(metrics) {
     recommendations.push(idle);
   }
 
+  // Right-sizing
   const rightSize = getRightSizeRecommendation({
     instanceType: metrics.instanceType,
     p95CpuPercent: metrics.p95CpuPercent
   });
 
   if (rightSize) {
-    recommendations.push(rightSize);
+    const currentInstance =
+      INSTANCE_TYPES[metrics.instanceType];
+
+    const proposedInstance =
+      INSTANCE_TYPES[rightSize.proposed.instanceType];
+
+    const projectedSavings = calculateRightSizeSavings({
+      currentInstance,
+      proposedInstance,
+      currentCpuUtilization: metrics.p95CpuPercent,
+      idleWattsPerVcpu: metrics.idleWattsPerVcpu,
+      maxWattsPerVcpu: metrics.maxWattsPerVcpu,
+      hoursRunning: metrics.hoursRunning,
+      pue: metrics.pue,
+      gridIntensity: metrics.currentGridIntensity
+    });
+
+    const risk = calculateRiskScore(
+      metrics.p95CpuPercent
+    );
+
+    recommendations.push({
+      ...rightSize,
+      projectedSavings: projectedSavings.savings,
+      risk
+    });
   }
 
+  // Scheduled stop
   const scheduling = getSchedulingRecommendation({
     environment: metrics.environment,
     avgCpuPercent: metrics.avgCpuPercent,
@@ -47,6 +85,7 @@ function getRecommendations(metrics) {
     recommendations.push(scheduling);
   }
 
+  // Carbon-aware shifting
   const carbonShift = getCarbonShiftRecommendation({
     currentGridIntensity: metrics.currentGridIntensity,
     alternativeGridIntensity: metrics.alternativeGridIntensity,
