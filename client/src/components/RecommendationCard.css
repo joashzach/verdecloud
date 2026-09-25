@@ -1,0 +1,319 @@
+/* ============================================================
+   RecommendationCard.css — Density pass v2
+   All visual refinements from the density pass are here.
+   Global card / badge / btn tokens come from index.css.
+   ============================================================ */
+
+/* ── Card shell: relative for the stripe ── */
+.rec-card {
+  position: relative;
+  overflow: hidden; /* clip the stripe */
+}
+
+/* ── 1. Priority stripe — 4px left-edge bar ── */
+.rec-card__stripe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--stripe-color, var(--color-border));
+  border-radius: 4px 0 0 4px;
+}
+
+/* ── Inner wrapper — clears the stripe ── */
+.rec-card__inner {
+  padding: var(--space-5) var(--space-5) var(--space-5) calc(var(--space-5) + 4px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── Header ── */
+.rec-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.rec-card__header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+/* Icon badge — 36px rounded square, matches StatCard */
+.rec-card__icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Title block */
+.rec-card__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.rec-card__title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* ── 2. Subtitle: instanceId · region ── */
+.rec-card__subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', monospace;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+}
+
+/* ── 3. Status + time tag ── */
+.rec-card__status-tag {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 10px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-top: 3px;
+  line-height: 1.3;
+}
+
+.rec-card__status-tag--reviewed {
+  color: var(--color-text-muted);
+}
+
+.rec-card__status-time {
+  font-weight: var(--font-weight-normal);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0;
+}
+
+/* ── Description ── */
+.rec-card__description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── 4. Trigger-metric chip ── */
+.rec-card__trigger-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  width: fit-content;
+}
+
+.rec-card__trigger-label {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+.rec-card__trigger-value {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+/* ── 6. One-row layout: comparison + metrics ── */
+.rec-card__data-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* Comparison box — left side, takes ~55% */
+.rec-card__instances {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: nowrap;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.rec-card__instance-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rec-card__instance-label {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+}
+
+.rec-card__instance-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+.rec-card__instance-value--good {
+  color: var(--color-primary);
+}
+
+.rec-card__instance-value--terminate {
+  color: var(--color-danger);
+}
+
+.rec-card__arrow {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* ── 5. Sparkline ── */
+.rec-card__sparkline-wrap {
+  margin-left: auto;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.rec-card__sparkline {
+  display: block;
+}
+
+/* Impact metrics — right side, fills remaining space */
+.rec-card__metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.rec-card__metric {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rec-card__metric-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  min-width: 48px;
+}
+
+.rec-card__metric-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* ── 7. Footer ── */
+.rec-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-1);
+}
+
+/* "Mark as reviewed" — text link style, right-aligned */
+.rec-card__mark-reviewed {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color var(--transition-base);
+}
+
+.rec-card__mark-reviewed:hover {
+  color: var(--color-primary);
+}
+
+.rec-card__mark-reviewed:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* "Reviewed" static indicator */
+.rec-card__reviewed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+/* ── Responsive: stack on mobile ── */
+@media (max-width: 600px) {
+  .rec-card__data-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .rec-card__instances {
+    width: 100%;
+    flex: none;
+  }
+
+  .rec-card__metrics {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-4);
+  }
+
+  .rec-card__footer .btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .rec-card__header {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .rec-card__status-tag {
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+  }
+}
