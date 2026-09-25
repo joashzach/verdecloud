@@ -1,0 +1,180 @@
+/* ============================================================
+   ServiceBreakdown.css
+   ============================================================ */
+
+.sb {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-6);
+}
+
+/* ── Header ── */
+.sb__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.sb__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.sb__subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+/* ── Toggle CO₂ / Cost ── */
+.sb__toggle {
+  display: flex;
+  gap: 2px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+.sb__toggle-btn {
+  padding: 4px 14px;
+  border-radius: calc(var(--radius-sm) - 2px);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.sb__toggle-btn:hover {
+  color: var(--color-text);
+  background: rgba(0,0,0,0.04);
+}
+
+.sb__toggle-btn--active {
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ── Service list ── */
+.sb__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sb__row {
+  display: grid;
+  grid-template-columns: 120px 1fr 44px 84px;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Service name + color dot + icon */
+.sb__row-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.sb__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sb__row-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Bar */
+.sb__bar-area {
+  min-width: 0;
+}
+
+.sb__track {
+  height: 10px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.sb__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0.85;
+}
+
+.sb__row:hover .sb__fill {
+  opacity: 1;
+}
+
+/* Percentage */
+.sb__pct {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Absolute value */
+.sb__val {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ── Total row ── */
+.sb__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.sb__total-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+}
+
+.sb__total-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .sb__row {
+    grid-template-columns: 100px 1fr 36px 72px;
+    gap: var(--space-2);
+  }
+  .sb__header { flex-direction: column; align-items: flex-start; }
+}

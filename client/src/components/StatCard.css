@@ -1,5 +1,5 @@
 /* ============================================================
-   StatCard.css
+   StatCard.css — Updated to support inline sparkline
    ============================================================ */
 
 .stat-card {
@@ -21,7 +21,7 @@
   transform: translateY(-1px);
 }
 
-/* Subtle left accent stripe */
+/* Left accent stripe — uses --accent CSS variable per card */
 .stat-card::before {
   content: '';
   position: absolute;
@@ -35,7 +35,16 @@
 }
 
 .stat-card:hover::before {
-  background: var(--color-primary);
+  background: var(--accent, var(--color-primary));
+}
+
+/* ── Top row: icon left, sparkline right ── */
+.stat-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
 }
 
 /* ── Icon wrapper ── */
@@ -50,7 +59,33 @@
   border: 1px solid var(--color-border);
   color: var(--color-text-muted);
   flex-shrink: 0;
-  margin-bottom: var(--space-1);
+  transition: border-color var(--transition-base), color var(--transition-base);
+}
+
+.stat-card:hover .stat-card__icon-wrap {
+  border-color: var(--accent, var(--color-primary));
+  color: var(--accent, var(--color-primary));
+}
+
+/* ── Sparkline ── */
+.stat-card__sparkline {
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: opacity var(--transition-base);
+}
+
+.stat-card:hover .stat-card__sparkline {
+  opacity: 1;
+}
+
+/* ── Subtle "7-day" label aligned under sparkline ── */
+.stat-card__spark-label {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  text-align: right;
+  letter-spacing: 0.02em;
+  margin-top: calc(var(--space-1) * -1);
+  opacity: 0.7;
 }
 
 /* ── Title ── */
@@ -92,13 +127,8 @@
   margin-top: var(--space-1);
 }
 
-.stat-card__change--good {
-  color: var(--color-success);
-}
-
-.stat-card__change--bad {
-  color: var(--color-danger);
-}
+.stat-card__change--good { color: var(--color-success); }
+.stat-card__change--bad  { color: var(--color-danger); }
 
 .stat-card__change-label {
   font-weight: var(--font-weight-normal);

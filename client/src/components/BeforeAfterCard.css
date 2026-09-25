@@ -1,5 +1,5 @@
 /* ============================================================
-   BeforeAfterCard.css
+   BeforeAfterCard.css — Redesigned with visual bar comparison
    ============================================================ */
 
 .bac {
@@ -71,7 +71,7 @@
   font-size: var(--font-size-sm);
 }
 
-/* ── Metric rows ── */
+/* ── Metric rows container ── */
 .bac__metrics {
   display: flex;
   flex-direction: column;
@@ -84,6 +84,7 @@
   gap: var(--space-2);
 }
 
+/* Metric label + improvement badge */
 .bac__metric-header {
   display: flex;
   align-items: center;
@@ -113,90 +114,80 @@
   color: #991B1B;
 }
 
-/* ── Values row ── */
-.bac__metric-values {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-.bac__metric-col {
+/* ── Visual bar comparison ── */
+.bac__bars {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  min-width: 80px;
+  gap: 6px;
 }
 
-.bac__metric-period {
+.bac__bar-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.bac__bar-label {
   font-size: var(--font-size-xs);
   color: var(--color-text-muted);
-}
-
-.bac__metric-val {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: -0.02em;
-}
-
-.bac__metric-val--before {
-  color: var(--color-text-muted);
-  text-decoration: line-through;
-  text-decoration-color: rgba(107, 114, 128, 0.4);
-}
-
-.bac__metric-val--after-good {
-  color: var(--color-primary);
-}
-
-.bac__metric-val--after-bad {
-  color: var(--color-danger);
-}
-
-.bac__metric-unit {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-normal);
-  color: var(--color-text-muted);
-}
-
-.bac__metric-arrow {
-  color: var(--color-text-muted);
+  width: 34px;
   flex-shrink: 0;
+  font-weight: var(--font-weight-medium);
 }
 
-/* ── Progress bar ── */
-.bac__progress-track {
-  height: 5px;
+.bac__bar-track {
+  flex: 1;
+  height: 9px;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   overflow: hidden;
 }
 
-.bac__progress-fill {
+.bac__bar {
   height: 100%;
   border-radius: var(--radius-full);
-  transition: width 0.6s ease;
+  transition: width 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.bac__progress-fill--good {
+.bac__bar--before {
+  background: #D1D5DB;
+}
+
+.bac__bar--good {
   background: var(--color-primary);
 }
 
-.bac__progress-fill--bad {
+.bac__bar--bad {
   background: var(--color-danger);
+}
+
+.bac__bar-value {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  min-width: 60px;
+  text-align: right;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.bac__bar-value--muted {
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+  text-decoration-color: rgba(107,114,128,0.35);
+}
+
+.bac__bar-value--good {
+  color: var(--color-primary);
+}
+
+.bac__bar-value--bad {
+  color: var(--color-danger);
 }
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
-  .bac__header {
-    flex-direction: column;
-  }
-
-  .bac__summary-badges {
-    width: 100%;
-  }
-
-  .bac__metric-val {
-    font-size: var(--font-size-base);
-  }
+  .bac__header { flex-direction: column; }
+  .bac__summary-badges { width: 100%; }
+  .bac__bar-value { min-width: 48px; }
 }

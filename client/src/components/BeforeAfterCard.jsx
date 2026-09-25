@@ -1,12 +1,13 @@
 /**
  * BeforeAfterCard.jsx — VerdeCloud Optimization Impact Comparison
  *
- * Visually compares "Before" vs "After" applying VerdeCloud recommendations.
- * Shows each metric as a side-by-side row with a progress bar showing
- * the improvement magnitude.
+ * Redesigned MetricRow: instead of text + progress bar, each metric
+ * now shows two horizontal bars side by side (Before / After),
+ * normalized so the larger value occupies full width.
+ * This makes the comparison immediately intuitive at a glance.
  *
  * Props:
- *  data: object from mockData.beforeAfterData (or API response same shape)
+ *  data: object from mockData.beforeAfterData
  */
 
 import './BeforeAfterCard.css';
@@ -15,79 +16,80 @@ import './BeforeAfterCard.css';
 function formatValue(value, metric) {
   const prefix = metric.prefix || '';
   if (typeof value !== 'number') return `${prefix}${value}`;
-
-  // INR: show in lakhs (L) for values ≥ 1,00,000
   if (metric.isINR) {
     if (value >= 100000) return `${prefix}${(value / 100000).toFixed(2)}L`;
     if (value >= 1000)   return `${prefix}${(value / 1000).toFixed(1)}K`;
     return `${prefix}${value}`;
   }
-
-  // Default: use Indian locale for any number ≥ 1000
   if (value >= 1000) return `${prefix}${value.toLocaleString('en-IN')}`;
   return `${prefix}${value}`;
 }
 
 // ── Compute improvement percentage ────────────────────────────
 function computeImprovement(before, after, lowerIsBetter) {
-  if (lowerIsBetter) {
-    return ((before - after) / before) * 100;
-  }
+  if (lowerIsBetter) return ((before - after) / before) * 100;
   return ((after - before) / before) * 100;
 }
 
-// ── Single metric row ──────────────────────────────────────────
+// ── Single metric row — visual bar comparison ─────────────────
 function MetricRow({ metric, before, after }) {
   const beforeVal = before[metric.key];
-  const afterVal = after[metric.key];
+  const afterVal  = after[metric.key];
   const improvement = computeImprovement(beforeVal, afterVal, metric.lowerIsBetter);
-  const isImproved = improvement > 0;
+  const isImproved  = improvement > 0;
   const absImprovement = Math.abs(improvement).toFixed(1);
 
-  // Progress bar: how much of "before" has been saved/improved
-  const barFill = Math.min(Math.abs(improvement), 100);
+  // Normalize so the larger value = 100% bar width
+  const maxVal      = Math.max(beforeVal, afterVal);
+  const beforeWidth = ((beforeVal / maxVal) * 100).toFixed(1);
+  const afterWidth  = ((afterVal  / maxVal) * 100).toFixed(1);
+
+  const fBefore = formatValue(beforeVal, metric);
+  const fAfter  = formatValue(afterVal,  metric);
 
   return (
     <div className="bac__metric-row">
+      {/* Label + badge */}
       <div className="bac__metric-header">
         <span className="bac__metric-label">{metric.label}</span>
-        <span className={`bac__metric-badge ${isImproved ? 'bac__metric-badge--good' : 'bac__metric-badge--neutral'}`}>
+        <span
+          className={`bac__metric-badge ${isImproved ? 'bac__metric-badge--good' : 'bac__metric-badge--neutral'}`}
+          aria-label={`${absImprovement}% ${isImproved ? 'improvement' : 'decline'}`}
+        >
           {isImproved ? '↓' : '↑'} {absImprovement}%
         </span>
       </div>
 
-      {/* Values */}
-      <div className="bac__metric-values">
-        <div className="bac__metric-col">
-          <span className="bac__metric-period">Before</span>
-          <span className="bac__metric-val bac__metric-val--before">
-            {formatValue(beforeVal, metric)}
-            <span className="bac__metric-unit"> {metric.unit}</span>
+      {/* Visual bar comparison */}
+      <div
+        className="bac__bars"
+        role="img"
+        aria-label={`${metric.label}: before ${fBefore}, after ${fAfter}`}
+      >
+        {/* Before */}
+        <div className="bac__bar-row">
+          <span className="bac__bar-label">Before</span>
+          <div className="bac__bar-track">
+            <div className="bac__bar bac__bar--before" style={{ width: `${beforeWidth}%` }} />
+          </div>
+          <span className="bac__bar-value bac__bar-value--muted">{fBefore}</span>
+        </div>
+
+        {/* After */}
+        <div className="bac__bar-row">
+          <span className="bac__bar-label">After</span>
+          <div className="bac__bar-track">
+            <div
+              className={`bac__bar ${isImproved ? 'bac__bar--good' : 'bac__bar--bad'}`}
+              style={{ width: `${afterWidth}%` }}
+            />
+          </div>
+          <span
+            className={`bac__bar-value ${isImproved ? 'bac__bar-value--good' : 'bac__bar-value--bad'}`}
+          >
+            {fAfter}
           </span>
         </div>
-
-        <div className="bac__metric-arrow" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12" />
-            <polyline points="12,5 19,12 12,19" />
-          </svg>
-        </div>
-
-        <div className="bac__metric-col">
-          <span className="bac__metric-period">After</span>
-          <span className={`bac__metric-val ${isImproved ? 'bac__metric-val--after-good' : 'bac__metric-val--after-bad'}`}>
-            {formatValue(afterVal, metric)}
-            <span className="bac__metric-unit"> {metric.unit}</span>
-          </span>
-        </div>
-      </div>
-
-      {/* Progress bar showing improvement */}
-      <div className="bac__progress-track" role="progressbar" aria-valuenow={barFill} aria-valuemin="0" aria-valuemax="100" aria-label={`${metric.label} improvement: ${absImprovement}%`}>
-        <div
-          className={`bac__progress-fill ${isImproved ? 'bac__progress-fill--good' : 'bac__progress-fill--bad'}`}
-          style={{ width: `${barFill}%` }}
-        />
       </div>
     </div>
   );
@@ -97,21 +99,19 @@ function MetricRow({ metric, before, after }) {
 export default function BeforeAfterCard({ data }) {
   const { title, subtitle, before, after, metrics } = data;
 
-  // Overall summary: total cost saved, CO2 reduced
   const costSaved = before.cloudCost - after.cloudCost;
-  const co2Saved = (before.co2Emissions - after.co2Emissions).toFixed(2);
-  const effGain = after.efficiency - before.efficiency;
+  const co2Saved  = (before.co2Emissions - after.co2Emissions).toFixed(2);
+  const effGain   = after.efficiency - before.efficiency;
 
   return (
     <article className="bac" aria-label="Before and after optimization comparison">
-      {/* Card header */}
+
+      {/* Header */}
       <div className="bac__header">
         <div>
           <h2 className="bac__title">{title}</h2>
           <p className="bac__subtitle">{subtitle}</p>
         </div>
-
-        {/* Summary badges */}
         <div className="bac__summary-badges">
           <span className="badge badge--success" title="Monthly cost saved">
             ₹{(costSaved / 100000).toFixed(2)}L saved/mo
@@ -125,14 +125,14 @@ export default function BeforeAfterCard({ data }) {
         </div>
       </div>
 
-      {/* Period comparison labels */}
+      {/* Period chips */}
       <div className="bac__period-labels" aria-hidden="true">
         <span className="bac__period-chip bac__period-chip--before">{before.period}</span>
         <span className="bac__period-divider">→</span>
         <span className="bac__period-chip bac__period-chip--after">{after.period}</span>
       </div>
 
-      {/* Metrics */}
+      {/* Metric rows */}
       <div className="bac__metrics">
         {metrics.map((metric) => (
           <MetricRow

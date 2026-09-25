@@ -73,6 +73,21 @@
   }
 }
 
+/* ── Row 3: Service Breakdown + Sustainability Goal ── */
+.overview-page__insights {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .overview-page__insights {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 640px) {
   .overview-page__header {
     flex-direction: column;

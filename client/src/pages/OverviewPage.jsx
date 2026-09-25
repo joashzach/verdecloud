@@ -2,29 +2,44 @@
  * OverviewPage.jsx — Person 1's primary page
  *
  * Layout:
- *  ┌──────────────────────────────────────────┐
- *  │  Page header (title + last updated)      │
- *  ├──────────────────────────────────────────┤
- *  │  StatCard grid (4 columns)               │
- *  ├──────────────────────────────────────────┤
- *  │  BeforeAfterCard    │   TrendChart        │
- *  └──────────────────────────────────────────┘
+ *  ┌─────────────────────────────────────────────────────────┐
+ *  │  Page header (title + live updated timestamp)           │
+ *  ├─────────────────────────────────────────────────────────┤
+ *  │  StatCard (Energy) │ StatCard (CO₂) │ StatCard (Cost)  │
+ *  │  + sparkline       │ + sparkline    │ + sparkline       │
+ *  │  StatCard (Efficiency + sparkline)                       │
+ *  ├──────────────────────────┬──────────────────────────────┤
+ *  │  BeforeAfterCard         │  TrendChart                  │
+ *  │  (visual bar comparison) │  (Weekly/Monthly/6M tabs)    │
+ *  ├──────────────────────────┴──────────────────────────────┤
+ *  │  ServiceBreakdown (2/3 width)  │  SustainabilityGoal    │
+ *  └─────────────────────────────────────────────────────────┘
  *
  * Data: consumed from mockData.js — swap for API calls later.
  */
 
-import StatCard from '../components/StatCard';
-import BeforeAfterCard from '../components/BeforeAfterCard';
-import TrendChart from '../components/TrendChart';
-import { overviewStats, beforeAfterData, weeklyTrendData, monthlyTrendData, sixMonthTrendData } from '../data/mockData';
+import StatCard         from '../components/StatCard';
+import BeforeAfterCard  from '../components/BeforeAfterCard';
+import TrendChart       from '../components/TrendChart';
+import ServiceBreakdown from '../components/ServiceBreakdown';
+import SustainabilityGoal from '../components/SustainabilityGoal';
+
+import {
+  overviewStats,
+  beforeAfterData,
+  weeklyTrendData,
+  monthlyTrendData,
+  sixMonthTrendData,
+  serviceBreakdownData,
+  sustainabilityGoal,
+} from '../data/mockData';
+
 import './OverviewPage.css';
 
 // ── Page header ────────────────────────────────────────────────
 function PageHeader() {
   const now = new Date().toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    year: 'numeric', month: 'long', day: 'numeric',
   });
 
   return (
@@ -48,10 +63,11 @@ export default function OverviewPage() {
   return (
     <main className="page" id="main-content">
       <div className="container">
+
         {/* Page header */}
         <PageHeader />
 
-        {/* ── StatCards ── */}
+        {/* ── Row 1: StatCards with sparklines ── */}
         <section
           className="grid-4 overview-page__stats"
           aria-label="Key performance metrics"
@@ -61,7 +77,7 @@ export default function OverviewPage() {
           ))}
         </section>
 
-        {/* ── Bottom row: BeforeAfter + TrendChart ── */}
+        {/* ── Row 2: BeforeAfterCard + TrendChart ── */}
         <section className="overview-page__bottom" aria-label="Performance analysis">
           <BeforeAfterCard data={beforeAfterData} />
           <TrendChart
@@ -70,6 +86,13 @@ export default function OverviewPage() {
             sixMonthData={sixMonthTrendData}
           />
         </section>
+
+        {/* ── Row 3: Service Breakdown + Sustainability Goal ── */}
+        <section className="overview-page__insights" aria-label="Service breakdown and sustainability targets">
+          <ServiceBreakdown data={serviceBreakdownData} />
+          <SustainabilityGoal data={sustainabilityGoal} />
+        </section>
+
       </div>
     </main>
   );

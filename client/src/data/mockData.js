@@ -16,11 +16,13 @@ export const overviewStats = [
     title: 'Energy Usage',
     value: '2,847',
     unit: 'kWh',
-    change: -12.4,          // negative = improvement (less energy)
+    change: -12.4,
     changeLabel: 'vs last month',
-    trend: 'down',          // "down" is good for energy/emissions
+    trend: 'down',
     icon: 'zap',
     color: 'warning',
+    accentColor: '#F59E0B',
+    sparklineData: [415, 398, 421, 388, 402, 312, 295],
   },
   {
     id: 'co2-emissions',
@@ -32,28 +34,34 @@ export const overviewStats = [
     trend: 'down',
     icon: 'cloud',
     color: 'success',
+    accentColor: '#16A34A',
+    sparklineData: [0.183, 0.175, 0.185, 0.171, 0.177, 0.137, 0.130],
   },
   {
     id: 'cloud-cost',
     title: 'Cloud Cost',
-    value: '₹12.08L',       // INR — lakhs format
+    value: '₹12.08L',
     unit: '',
     change: -5.2,
     changeLabel: 'vs last month',
     trend: 'down',
-    icon: 'dollar',
+    icon: 'rupee',
     color: 'primary',
+    accentColor: '#6366F1',
+    sparklineData: [177120, 171360, 180600, 166944, 172860, 134232, 126840],
   },
   {
     id: 'resource-efficiency',
     title: 'Resource Efficiency',
     value: '73',
     unit: '%',
-    change: +4.1,           // positive = improvement for efficiency
+    change: +4.1,
     changeLabel: 'vs last month',
     trend: 'up',
     icon: 'cpu',
     color: 'primary',
+    accentColor: '#0EA5E9',
+    sparklineData: [70, 71, 69, 73, 72, 76, 78],
   },
 ];
 
@@ -64,10 +72,10 @@ export const beforeAfterData = {
   before: {
     label: 'Before',
     period: 'Aug 2026',
-    energyUsage: 3247,        // kWh
-    co2Emissions: 1.43,       // tCO₂e
+    energyUsage: 3247,
+    co2Emissions: 1.43,
     cloudCost: 1275120,       // INR (₹)
-    efficiency: 61,           // %
+    efficiency: 61,
   },
   after: {
     label: 'After',
@@ -85,7 +93,7 @@ export const beforeAfterData = {
   ],
 };
 
-// ── Trend data — Weekly (last 7 days, daily granularity) ─────────
+// ── Trend data — Weekly (last 7 days) ────────────────────────────
 export const weeklyTrendData = [
   { period: 'Mon', energyUsage: 415, co2Emissions: 0.183, cloudCost: 177120, efficiency: 70 },
   { period: 'Tue', energyUsage: 398, co2Emissions: 0.175, cloudCost: 171360, efficiency: 71 },
@@ -122,12 +130,35 @@ export const sixMonthTrendData = [
   { period: 'Sep', energyUsage: 2847, co2Emissions: 1.24, cloudCost: 1208082, efficiency: 73 },
 ];
 
-// Keep trendData as an alias for backward compatibility
+// Alias for backward compatibility
 export const trendData = sixMonthTrendData;
 
-// ── Placeholder data for other features (Persons 2 & 3) ─────────
-// These will be replaced by real API data when other devs build their features.
+// ── Service breakdown data ───────────────────────────────────────
+export const serviceBreakdownData = {
+  title: 'Breakdown by Service',
+  subtitle: 'CO₂ emissions and cost by cloud service type',
+  services: [
+    { id: 'compute',    name: 'Compute',    co2: 0.54, cost: 526000, color: '#6366F1' },
+    { id: 'storage',    name: 'Storage',    co2: 0.31, cost: 302000, color: '#0EA5E9' },
+    { id: 'database',   name: 'Database',   co2: 0.23, cost: 224000, color: '#F59E0B' },
+    { id: 'networking', name: 'Networking', co2: 0.11, cost: 108000, color: '#16A34A' },
+    { id: 'other',      name: 'Other',      co2: 0.05, cost: 48082,  color: '#9CA3AF' },
+  ],
+};
 
+// ── Sustainability goal ──────────────────────────────────────────
+export const sustainabilityGoal = {
+  title: 'Q3–Q4 Emissions Target',
+  description: '25% CO₂ reduction from Q2 baseline',
+  metric: 'CO₂ Emissions',
+  unit: 'tCO₂e',
+  targetValue: 1.00,
+  currentValue: 1.24,
+  startValue: 1.69,      // beginning of quarter (Q2 baseline)
+  deadline: 'Dec 31, 2026',
+};
+
+// ── Placeholder data for other features (Persons 2 & 3) ─────────
 export const instancesPlaceholder = {
   count: 24,
   running: 18,
@@ -140,7 +171,7 @@ export const recommendationsPlaceholder = {
   high: 3,
   medium: 7,
   low: 2,
-  estimatedSavings: 238560,  // INR/month
+  estimatedSavings: 238560,
 };
 
 export const reportsPlaceholder = {
