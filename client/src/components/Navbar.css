@@ -1,0 +1,218 @@
+/* ============================================================
+   Navbar.css — Styles for the VerdeCloud Resizable Navbar
+   ============================================================ */
+
+/* ── Fixed wrapper — centers the pill at the top ── */
+.navbar-wrapper {
+  position: fixed;
+  top: var(--navbar-top-offset);
+  left: 0;
+  right: 0;
+  z-index: var(--navbar-z-index);
+  display: flex;
+  justify-content: center;
+  pointer-events: none; /* Allow clicks through wrapper, only pill intercepts */
+}
+
+/* ── Navbar pill ── */
+.navbar {
+  pointer-events: auto;
+  width: calc(100% - var(--space-8));
+  max-width: 900px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding-inline: var(--space-6);
+  /* framer-motion handles width via inline style */
+}
+
+/* ── Logo ── */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  color: var(--color-text);
+  transition: color var(--transition-base);
+}
+
+.navbar__logo:hover {
+  color: var(--color-primary);
+}
+
+.navbar__logo-icon {
+  display: flex;
+  align-items: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.navbar__logo-text {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  letter-spacing: -0.02em;
+}
+
+/* ── Desktop nav links ── */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  list-style: none;
+  margin-left: auto;
+}
+
+.navbar__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  transition: color var(--transition-base), background var(--transition-base);
+  white-space: nowrap;
+}
+
+.navbar__link:hover {
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.navbar__link--active {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.navbar__link--active:hover {
+  color: var(--color-primary-dark);
+  background: var(--color-primary-light);
+}
+
+.navbar__link-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navbar__link-label {
+  line-height: 1;
+}
+
+/* ── Hamburger button (mobile only) ── */
+.navbar__hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  transition: background var(--transition-base);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.navbar__hamburger:hover {
+  background: var(--color-bg);
+}
+
+.navbar__hamburger-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Mobile backdrop ── */
+.navbar__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: calc(var(--navbar-z-index) - 1);
+}
+
+/* ── Mobile drawer ── */
+.navbar__mobile-drawer {
+  position: fixed;
+  top: calc(var(--navbar-top-offset) + 68px);
+  left: var(--space-4);
+  right: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--navbar-z-index);
+  overflow: hidden;
+  padding: var(--space-4);
+}
+
+.navbar__mobile-header {
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-3);
+}
+
+.navbar__mobile-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.navbar__mobile-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  transition: color var(--transition-base), background var(--transition-base);
+}
+
+.navbar__mobile-link:hover {
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+.navbar__mobile-link--active {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.navbar__mobile-link--active:hover {
+  color: var(--color-primary-dark);
+  background: var(--color-primary-light);
+}
+
+/* ── Responsive breakpoints ── */
+@media (max-width: 768px) {
+  .navbar__links {
+    display: none;
+  }
+
+  .navbar__hamburger {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    height: 52px;
+    padding-inline: var(--space-4);
+  }
+
+  .navbar-wrapper {
+    top: var(--space-3);
+  }
+}
