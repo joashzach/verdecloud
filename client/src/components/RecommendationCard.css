@@ -1,0 +1,27 @@
+/* RecommendationCard.css
+   Component-scoped styles.
+   Global card + badge tokens come from index.css.
+*/
+
+/* Title block: priority pill above title */
+.rec-card__title-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+/* Metrics: tighter row layout */
+.rec-card__metric {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rec-card__metric-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
