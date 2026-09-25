@@ -15,6 +15,9 @@ const footprintRoutes =
 const reportRoutes =
   require("./routes/reports");
 
+const syncRoutes =
+  require("./routes/sync");
+
 const app = express();
 
 app.use(express.json());
@@ -49,6 +52,11 @@ app.use(
 app.use(
   "/api/reports",
   reportRoutes
+);
+
+app.use(
+  "/api/sync",
+  syncRoutes
 );
 
 module.exports = app;
