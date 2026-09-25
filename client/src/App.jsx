@@ -7,6 +7,7 @@
  * Route map:
  *  /                    → OverviewPage        (Person 1 — Baibhav)
  *  /instances           → InstancesPage       (Person 2)
+ *  /instances/:id       → InstanceDetail      (Person 2)
  *  /recommendations     → RecommendationsPage (Ardhendu)
  *  /reports             → ReportsPage         (Ardhendu)
  *
@@ -19,6 +20,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import OverviewPage from './pages/OverviewPage';
 import InstancesPage from './pages/InstancesPage';
+import InstanceDetail from './pages/InstanceDetail';
 import RecommendationsPage from './pages/RecommendationsPage';
 import ReportsPage from './pages/ReportsPage';
 
@@ -32,6 +34,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<OverviewPage />} />
         <Route path="/instances" element={<InstancesPage />} />
+        <Route path="/instances/:id" element={<InstanceDetail />} />
         <Route path="/recommendations" element={<RecommendationsPage />} />
         <Route path="/reports" element={<ReportsPage />} />
       </Routes>
